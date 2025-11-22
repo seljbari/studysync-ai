@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Your StudySync Match</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <h1>Your Study Buddy Match</h1>
+
+        {% if best_match %}
+            <p class="subtitle">
+                We found a match for <strong>{{ seeker.name }}</strong> out of {{ num_others }} other student(s).
+            </p>
+
+            <div class="grid">
+                <div class="card">
+                    <h2>You</h2>
+                    <p><strong>Name:</strong> {{ seeker.name }}</p>
+                    <p><strong>Major:</strong> {{ seeker.major }}</p>
+                    <p><strong>Year:</strong> {{ seeker.year }}</p>
+                    <p><strong>Study style:</strong> {{ seeker.study_style }}</p>
+                    <p><strong>Vibe:</strong> {{ seeker.vibe }}</p>
+                    <p><strong>Subjects:</strong> {{ seeker.subjects }}</p>
+                    <p><strong>Availability:</strong> {{ seeker.availability }}</p>
+                    <p><strong>Goals:</strong> {{ seeker.goals }}</p>
+                </div>
+
+                <div class="card">
+                    <h2>Your Match</h2>
+                    <p><strong>Name:</strong> {{ best_match.name }}</p>
+                    <p><strong>Major:</strong> {{ best_match.major }}</p>
+                    <p><strong>Year:</strong> {{ best_match.year }}</p>
+                    <p><strong>Study style:</strong> {{ best_match.study_style }}</p>
+                    <p><strong>Vibe:</strong> {{ best_match.vibe }}</p>
+                    <p><strong>Subjects:</strong> {{ best_match.subjects }}</p>
+                    <p><strong>Availability:</strong> {{ best_match.availability }}</p>
+                    <p><strong>Goals:</strong> {{ best_match.goals }}</p>
+                </div>
+            </div>
+
+            {% if ai_result %}
+                <div class="card">
+                    <h2>Why this match?</h2>
+                    <p>{{ ai_result.reason }}</p>
+
+                    <h3>Suggested intro message</h3>
+                    <pre class="message-box">{{ ai_result.message }}</pre>
+                    <p class="hint">You can copy–paste this and tweak it to sound even more like you.</p>
+                </div>
+            {% endif %}
+
+        {% else %}
+            <div class="card">
+                <h2>No matches yet 😅</h2>
+                <p>
+                    You’re the first one in the system. As more people fill out the form,
+                    we’ll start connecting you with others.
+                </p>
+            </div>
+        {% endif %}
+
+        <a href="{{ url_for('index') }}" class="back-link">← Find another match</a>
+
+        <footer>
+            <p>Built at HackJams · StudySync</p>
+        </footer>
+    </div>
+</body>
+</html>

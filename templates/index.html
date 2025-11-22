@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>StudySync – Find Your AI Study Buddy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <h1>StudySync</h1>
+        <p class="subtitle">AI-powered study buddy matching for students 🔗📚</p>
+
+        <form action="{{ url_for('match') }}" method="POST" class="card">
+            <h2>Your Profile</h2>
+
+            <label>
+                Name
+                <input type="text" name="name" required />
+            </label>
+
+            <label>
+                Major
+                <input type="text" name="major" placeholder="Computer Science, Biology, etc." />
+            </label>
+
+            <label>
+                Year
+                <select name="year">
+                    <option value="Freshman">Freshman</option>
+                    <option value="Sophomore">Sophomore</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Senior">Senior</option>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Other">Other</option>
+                </select>
+            </label>
+
+            <label>
+                Study style
+                <select name="study_style">
+                    <option value="Quiet and focused">Quiet and focused</option>
+                    <option value="Collaborative and talk-through">Collaborative and talk-through</option>
+                    <option value="Structured and planned">Structured and planned</option>
+                    <option value="Last-minute sprint">Last-minute sprint</option>
+                </select>
+            </label>
+
+            <label>
+                Vibe
+                <select name="vibe">
+                    <option value="Chill and calm">Chill and calm</option>
+                    <option value="High-energy and intense">High-energy and intense</option>
+                    <option value="Camera-on, talkative">Camera-on, talkative</option>
+                    <option value="Camera-off, low-key">Camera-off, low-key</option>
+                </select>
+            </label>
+
+            <label>
+                Subjects you want to study
+                <textarea
+                    name="subjects"
+                    rows="3"
+                    placeholder="e.g., Data structures, Calculus, Physics II"
+                ></textarea>
+            </label>
+
+            <label>
+                When are you usually free?
+                <textarea
+                    name="availability"
+                    rows="2"
+                    placeholder="e.g., Weeknights after 7pm, weekends, Friday mornings"
+                ></textarea>
+            </label>
+
+            <label>
+                What are you looking for in a study buddy?
+                <textarea
+                    name="goals"
+                    rows="3"
+                    placeholder="Accountability, exam prep, homework help, project partner, etc."
+                ></textarea>
+            </label>
+
+            <button type="submit">Find my study buddy 🔍</button>
+        </form>
+
+        <footer>
+            <p>Built at HackJams · StudySync (AI Study Buddy Matcher)</p>
+        </footer>
+    </div>
+</body>
+</html>
