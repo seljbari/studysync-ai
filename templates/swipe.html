@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Swipe – StudySync</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<div class="container">
+    <h1>Swipe for Study Buddies</h1>
+    <p class="subtitle">
+        Logged in as <strong>{{ current.name }}</strong> (USF ID: {{ current.student_id }})
+    </p>
+
+    {% if message %}
+        <div class="card">
+            <p>{{ message }}</p>
+            {% if matched_with %}
+                {% set chat_id = current.student_id ~ '-' ~ matched_with.student_id if current.student_id < matched_with.student_id else matched_with.student_id ~ '-' ~ current.student_id %}
+                <a
+                  href="{{ url_for('chat', chat_id=chat_id, me=current.student_id, other=matched_with.student_id) }}"
+                  class="chat-button"
+                >
+                    Open chat with {{ matched_with.name }}
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if candidate %}
+        <div class="card swipe-card">
+            <h2>{{ candidate.name }}</h2>
+            <p><strong>USF ID:</strong> {{ candidate.student_id }}</p>
+
+            {% if candidate.photo_filename %}
+                <img
+                  class="avatar"
+                  src="{{ url_for('static', filename='uploads/' ~ candidate.photo_filename) }}"
+                  alt="Candidate photo"
+                >
+            {% endif %}
+
+            <p><strong>Major:</strong> {{ candidate.major }}</p>
+            <p><strong>Year:</strong> {{ candidate.year }}</p>
+            <p><strong>Study style:</strong> {{ candidate.study_style }}</p>
+            <p><strong>Vibe:</strong> {{ candidate.vibe }}</p>
+            <p><strong>Subjects:</strong> {{ candidate.subjects }}</p>
+            <p><strong>Availability:</strong> {{ candidate.availability }}</p>
+            <p><strong>Goals:</strong> {{ candidate.goals }}</p>
+
+            <form method="POST" class="swipe-actions">
+                <input type="hidden" name="target_id" value="{{ candidate.student_id }}" />
+                <button type="submit" name="action" value="pass">Skip</button>
+                <button type="submit" name="action" value="like">Yes, match</button>
+            </form>
+        </div>
+    {% else %}
+        <div class="card">
+            <h2>No more profiles to show right now</h2>
+            <p class="hint">Check back later as more USF students sign up.</p>
+        </div>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}" class="back-link">← Back to home</a>
+
+    <footer>
+        <p>Built at HackJams · StudySync</p>
+    </footer>
+</div>
+</body>
+</html>

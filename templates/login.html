@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Login – StudySync</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<div class="container">
+    <h1>StudySync Login</h1>
+    <p class="subtitle">Log in with your USF Student ID to view requests, matches, and chats.</p>
+
+    <form method="POST" class="card">
+        <label>
+            <span>USF Student ID</span>
+            <input type="text" name="student_id" placeholder="U########" required />
+        </label>
+
+        <button type="submit">Log in</button>
+    </form>
+
+    {% if error %}
+        <div class="card">
+            <p class="hint">{{ error }}</p>
+        </div>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}" class="back-link">← Back to sign up</a>
+
+    <footer>
+        <p>Built at HackJams · StudySync</p>
+    </footer>
+</div>
+</body>
+</html>

@@ -8,23 +8,34 @@
 <body>
     <div class="container">
         <h1>StudySync</h1>
-        <p class="subtitle">AI-powered study buddy matching for students 🔗📚</p>
+        <p class="subtitle">AI-powered study buddy matching for USF students 🔗📚</p>
 
-        <form action="{{ url_for('match') }}" method="POST" class="card">
-            <h2>Your Profile</h2>
+        <!-- Note: enctype allows file upload -->
+        <form action="{{ url_for('match') }}" method="POST" class="card" enctype="multipart/form-data">
+            <h2>Create your StudySync account</h2>
 
             <label>
-                Name
+                <span>Name</span>
                 <input type="text" name="name" required />
             </label>
 
             <label>
-                Major
+                <span>USF Student ID</span>
+                <input type="text" name="student_id" placeholder="U########" required />
+            </label>
+
+            <label>
+                <span>Profile picture (optional)</span>
+                <input type="file" name="photo" accept="image/*" />
+            </label>
+
+            <label>
+                <span>Major</span>
                 <input type="text" name="major" placeholder="Computer Science, Biology, etc." />
             </label>
 
             <label>
-                Year
+                <span>Year</span>
                 <select name="year">
                     <option value="Freshman">Freshman</option>
                     <option value="Sophomore">Sophomore</option>
@@ -36,7 +47,7 @@
             </label>
 
             <label>
-                Study style
+                <span>Study style</span>
                 <select name="study_style">
                     <option value="Quiet and focused">Quiet and focused</option>
                     <option value="Collaborative and talk-through">Collaborative and talk-through</option>
@@ -46,7 +57,7 @@
             </label>
 
             <label>
-                Vibe
+                <span>Vibe</span>
                 <select name="vibe">
                     <option value="Chill and calm">Chill and calm</option>
                     <option value="High-energy and intense">High-energy and intense</option>
@@ -56,7 +67,7 @@
             </label>
 
             <label>
-                Subjects you want to study
+                <span>Subjects you want to study</span>
                 <textarea
                     name="subjects"
                     rows="3"
@@ -65,7 +76,7 @@
             </label>
 
             <label>
-                When are you usually free?
+                <span>When are you usually free?</span>
                 <textarea
                     name="availability"
                     rows="2"
@@ -74,7 +85,7 @@
             </label>
 
             <label>
-                What are you looking for in a study buddy?
+                <span>What are you looking for in a study buddy?</span>
                 <textarea
                     name="goals"
                     rows="3"

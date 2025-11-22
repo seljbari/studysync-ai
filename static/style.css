@@ -173,3 +173,41 @@ footer {
     text-decoration: underline;
     transform: translateX(-5px);
 }
+.avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 999px;
+    object-fit: cover;
+    margin-bottom: 8px;
+    border: 2px solid #1f2937;
+}
+.swipe-card {
+    text-align: left;
+}
+
+.swipe-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+}
+
+.swipe-actions button:first-child {
+    background: #4b5563; /* will still inherit your base styles */
+    color: #e5e7eb;
+}
+
+.chat-messages {
+    max-height: 260px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.chat-message {
+    padding: 6px 8px;
+    border-radius: 10px;
+    background: #020617;
+    border: 1px solid #1f2937;
+    font-size: 0.9rem;
+}

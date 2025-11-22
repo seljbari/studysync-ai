@@ -17,6 +17,13 @@
             <div class="grid">
                 <div class="card">
                     <h2>You</h2>
+
+                    <p><strong>USF Student ID:</strong> {{ seeker.student_id }}</p>
+
+                    {% if seeker.photo_filename %}
+                        <img class="avatar" src="{{ url_for('static', filename='uploads/' ~ seeker.photo_filename) }}" alt="Your photo">
+                    {% endif %}
+
                     <p><strong>Name:</strong> {{ seeker.name }}</p>
                     <p><strong>Major:</strong> {{ seeker.major }}</p>
                     <p><strong>Year:</strong> {{ seeker.year }}</p>
@@ -29,6 +36,13 @@
 
                 <div class="card">
                     <h2>Your Match</h2>
+
+                    <p><strong>USF Student ID:</strong> {{ best_match.student_id }}</p>
+
+                    {% if best_match.photo_filename %}
+                        <img class="avatar" src="{{ url_for('static', filename='uploads/' ~ best_match.photo_filename) }}" alt="Match photo">
+                    {% endif %}
+
                     <p><strong>Name:</strong> {{ best_match.name }}</p>
                     <p><strong>Major:</strong> {{ best_match.major }}</p>
                     <p><strong>Year:</strong> {{ best_match.year }}</p>
@@ -60,6 +74,13 @@
                 </p>
             </div>
         {% endif %}
+        <a
+  href="{{ url_for('swipe', student_id=seeker.student_id) }}"
+  class="chat-button"
+>
+  Start swiping for more study buddies
+</a>
+
 
         <a href="{{ url_for('index') }}" class="back-link">← Find another match</a>
 

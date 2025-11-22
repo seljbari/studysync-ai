@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dashboard – StudySync</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<div class="container">
+    <h1>Your StudySync Dashboard</h1>
+    <p class="subtitle">
+        Logged in as <strong>{{ current.name }}</strong> (USF ID: {{ current.student_id }})
+    </p>
+
+    <div class="card">
+        <h2>Incoming match requests</h2>
+        {% if incoming_requests %}
+            <ul>
+                {% for s in incoming_requests %}
+                    <li>
+                        <strong>{{ s.name }}</strong> ({{ s.major }}, {{ s.year }})
+                        {% if s.photo_filename %}
+                            <img class="avatar" src="{{ url_for('static', filename='uploads/' ~ s.photo_filename) }}" alt="Profile photo">
+                        {% endif %}
+                        <form action="{{ url_for('accept_match') }}" method="POST" style="margin-top: 6px;">
+                            <input type="hidden" name="me_id" value="{{ current.student_id }}">
+                            <input type="hidden" name="other_id" value="{{ s.student_id }}">
+                            <button type="submit">Accept &amp; chat</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="hint">No new requests right now.</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h2>Your matches</h2>
+        {% if mutual_matches %}
+            <ul>
+                {% for s in mutual_matches %}
+                    <li>
+                        <strong>{{ s.name }}</strong> ({{ s.major }}, {{ s.year }})
+                        {% if s.photo_filename %}
+                            <img class="avatar" src="{{ url_for('static', filename='uploads/' ~ s.photo_filename) }}" alt="Profile photo">
+                        {% endif %}
+                        {% set chat_id = (current.student_id ~ '-' ~ s.student_id) if current.student_id < s.student_id else (s.student_id ~ '-' ~ current.student_id) %}
+                        <a
+                          href="{{ url_for('chat', chat_id=chat_id, me=current.student_id, other=s.student_id) }}"
+                          class="chat-button"
+                        >
+                            Open chat
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="hint">You don't have any mutual matches yet. Try swiping on more study buddies.</p>
+        {% endif %}
+    </div>
+
+    <a href="{{ url_for('swipe', student_id=current.student_id) }}" class="chat-button" style="margin-top: 12px;">
+        Start swiping
+    </a>
+
+    <a href="{{ url_for('index') }}" class="back-link" style="display:block; margin-top:8px;">
+        ← Back to sign up
+    </a>
+
+    <footer>
+        <p>Built at HackJams · StudySync</p>
+    </footer>
+</div>
+</body>
+</html>

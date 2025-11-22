@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Chat – StudySync</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+<div class="container">
+    <h1>Chat</h1>
+    <p class="subtitle">
+        Chat between <strong>{{ current.name }}</strong> and <strong>{{ other.name }}</strong>
+    </p>
+
+    <div class="card">
+        {% if messages %}
+            <div class="chat-messages">
+                {% for msg in messages %}
+                    <div class="chat-message">
+                        <strong>{{ msg.sender_name }}:</strong>
+                        <span>{{ msg.text }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="hint">No messages yet. Say hi 👋</p>
+        {% endif %}
+    </div>
+
+    <form method="POST" class="card chat-form">
+        <input type="hidden" name="me" value="{{ current.student_id }}">
+        <input type="hidden" name="other" value="{{ other.student_id }}">
+
+        <label>
+            <span>Message</span>
+            <textarea name="text" rows="3" placeholder="Type your message..."></textarea>
+        </label>
+
+        <button type="submit">Send</button>
+    </form>
+
+    <a href="{{ url_for('swipe', student_id=current.student_id) }}" class="back-link">
+        ← Back to swiping
+    </a>
+
+    <footer>
+        <p>Built at HackJams · StudySync</p>
+    </footer>
+</div>
+</body>
+</html>
